@@ -4,9 +4,9 @@ CM-Lex: A lexer generator for Standard ML and Haskell
 Installing
 ----------
 CM-Lex should be installed through Smackage, an ML package manager
-(see http://github.com/standardml/smackage). 
+(see http://github.com/standardml/smackage).
 
-    $ smackage 
+    $ smackage
     $ smackage get cmlex
     $ smackage make cmlex (this will just display the various options)
 
@@ -31,5 +31,5 @@ To install CM-Lex-HS (for Haskell)
 It is possible to install CMlex without Smackage: just make sure that CMlib v1
 (see http://github.com/standardml/cmlib) is installed somewhere on your system,
 and change the reference to `$SMACKAGE/cmlib/v1` in `sources-generic.cm` and/or
-the reference to `$(SMACKAGE)/cmlib/v1` in `sources-generic.mlb` to point to 
+the reference to `$(SMACKAGE)/cmlib/v1` in `sources-generic.mlb` to point to
 the directory where CMlib lives.

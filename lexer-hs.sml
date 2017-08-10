@@ -1,6 +1,6 @@
 
 structure LexerHs
-   :> LEXER 
+   :> LEXER
       where type token = TokenHs.token
    =
    struct
@@ -9,7 +9,7 @@ structure LexerHs
 
       structure Table =
          HashTable (structure Key = StringHashable)
-         
+
       val keywords : token option Table.table = Table.table 60
 
       (* Illegal identifiers (most are Haskell reserved words). *)
@@ -69,7 +69,7 @@ structure LexerHs
          ("set", SET)
          ]
 
-        
+
 
       open Stream
 
@@ -77,12 +77,12 @@ structure LexerHs
 
       type t = int -> (token * pos) front
       type u = int -> char stream * int
-  
+
       type self = { lexmain : char stream -> t,
                     skipcomment : char stream -> u }
 
       type info = { match : char list,
-                    len : int, 
+                    len : int,
                     start : char stream,
                     follow : char stream,
                     self : self }
@@ -99,17 +99,17 @@ structure LexerHs
          struct
             type symbol = char
             val ord = Char.ord
-  
+
             type t = t
             type u = u
             type self = self
             type info = info
 
             fun eof _ _ = Nil
-  
-            val ident = 
+
+            val ident =
                action
-               (fn (chars, _, pos) => 
+               (fn (chars, _, pos) =>
                       let
                          val str = implode chars
                       in
@@ -129,12 +129,12 @@ structure LexerHs
                            | SOME (SOME token) =>
                                 (token, pos))
                       end)
-  
-            val number = 
-               action 
+
+            val number =
+               action
                (fn (chars, _, pos) =>
                       ((case Int.fromString (implode chars) of
-                           SOME n => 
+                           SOME n =>
                               (NUMBER n, pos)
                          | NONE =>
                               raise (Fail "invariant"))
@@ -147,8 +147,8 @@ structure LexerHs
                                  )))
 
             fun skip ({ len, follow, self, ... }:info) pos = #lexmain self follow (pos+len)
-  
-            val char = 
+
+            val char =
                action
                (fn (chars, _, pos) =>
                       (* By construction, chars should be '<ch> . *)
@@ -157,20 +157,20 @@ structure LexerHs
                              (NUMBER (Char.ord ch), pos)
                         | _ =>
                              raise (Fail "invariant")))
-  
+
             fun lcomment ({ len, follow, self, ...}:info) pos =
                 let
                    val (follow', pos') = #skipcomment self follow (pos+len)
                 in
                    #lexmain self follow' pos'
                 end
-  
+
             val string =
                action
                (fn (chars, len, pos) =>
                       (* By construction, chars should begin and end with ". *)
                       (STRING (List.map ord (List.take (List.tl chars, len-2))), pos))
-  
+
             fun error _ pos =
                (
                print "Lexical error at ";
@@ -178,7 +178,7 @@ structure LexerHs
                print ".\n";
                raise Error
                )
-                   
+
             val ampersand = simple AND
             val arrow = simple ARROW
             val bar = simple OR
@@ -195,20 +195,20 @@ structure LexerHs
             val tilde = simple TILDE
             val geq = simple GEQ
             val starstar = simple REPEAT
-  
+
             fun comment_open ({ len, follow, self, ... }:info) pos =
                 let
                    val (follow', pos') = #skipcomment self follow (pos+len)
                 in
                    #skipcomment self follow' pos'
                 end
-  
-            fun comment_close ({ len, follow, ...}:info) pos = 
+
+            fun comment_close ({ len, follow, ...}:info) pos =
                 (follow, pos+len)
-  
+
             fun comment_skip ({ len, follow, self, ... }:info) pos =
                 #skipcomment self follow (pos+len)
-  
+
             fun comment_error _ pos =
                (
                print "Unclosed comment at ";

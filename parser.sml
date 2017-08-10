@@ -44,7 +44,7 @@ structure Parser
             type charsets = charset list
             val nil_charsets = null
             val cons_charsets = op ::
-            
+
             type regexp = regexp
             val ident_regexp = Var
             val number_regexp = Symbol

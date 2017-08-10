@@ -12,29 +12,29 @@ all:
 
 # MLton
 .PHONY : mlton
-mlton: 
+mlton:
 	mlton -output bin/cmlex cmlex.mlb
 
 .PHONY : mlton+hs
-mlton+hs: 
+mlton+hs:
 	mlton -output bin/cmlex-hs cmlex-hs.mlb
 
 # SML/NJ
 .PHONY : smlnj
 smlnj:
 	sml export-smlnj.sml
-	bin/mknjexec-unixey `which sml` `pwd`/bin cmlex-heapimg cmlex 
+	bin/mknjexec-unixey `which sml` `pwd`/bin cmlex-heapimg cmlex
 
 .PHONY : smlnj+hs
 smlnj+hs:
 	sml export-smlnj-hs.sml
 	bin/mknjexec-unixey `which sml` `pwd`/bin cmlex-hs-heapimg cmlex-hs
 
-# Windows + SML/NJ 
+# Windows + SML/NJ
 .PHONY : win+smlnj
 win+smlnj:
 	sml export-smlnj.sml
-	bin/mknjexec-win `which sml` `pwd`/bin cmlex-heapimg.x86-win32 cmlex 
+	bin/mknjexec-win `which sml` `pwd`/bin cmlex-heapimg.x86-win32 cmlex
 
 .PHONY : win+smlnj+hs
 win+smlnj+hs:

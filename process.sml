@@ -154,7 +154,7 @@ structure Process
             | String l =>
                  (
                  app
-                 (fn sym => 
+                 (fn sym =>
                         if 0 <= sym andalso sym < #1 (valOf (!alphabet)) then
                            ()
                         else
@@ -184,11 +184,11 @@ structure Process
             | Empty =>
                  Regexp.Empty
             | Concat res =>
-                 foldr 
+                 foldr
                  (fn (re1, re2) => Regexp.Concat (processRegexp errfn re1, re2))
                  Regexp.Epsilon res
             | Union res =>
-                 foldr 
+                 foldr
                  (fn (re1, re2) => Regexp.Union (processRegexp errfn re1, re2))
                  Regexp.Empty res
             | Optional re1 =>
@@ -208,7 +208,7 @@ structure Process
                  else
                     let
                        val re1' = processRegexp errfn re1
-   
+
                        fun loop m =
                           if m = 0 then
                              Regexp.Epsilon
@@ -230,7 +230,7 @@ structure Process
                  else
                     let
                        val re1' = processRegexp errfn re1
-   
+
                        fun loop m =
                           if m = 0 then
                              Regexp.Closure re1'
@@ -252,7 +252,7 @@ structure Process
                  else
                     let
                        val re1' = processRegexp errfn re1
-                    
+
                        fun loopOpt m =
                           if m = 0 then
                              Regexp.Epsilon
@@ -322,7 +322,7 @@ structure Process
                                            acc
                                         else
                                            loop (i+1) (SS.insert acc i)
-                                           
+
                                     val set = loop 0 SS.empty
                                  in
                                     alphabet := SOME (n, set)
@@ -429,7 +429,7 @@ structure Process
                                  print "regexp ";
                                  print name
                                  )
-                                 
+
                              val re' = processRegexp errfn re
                           in
                              patterns := D.insert (!patterns) name (RePattern re')
@@ -469,7 +469,7 @@ structure Process
 
 
       fun process l =
-          let 
+          let
              val () =
                 (
                 options := D.empty;
@@ -497,7 +497,7 @@ structure Process
                 (* Since functions is non-empty, we have already checked that an alphabet is specified. *)
                 #1 (valOf (!alphabet))
 
-             val functions' = 
+             val functions' =
                 map
                 (fn (name, (tp, armcount, arms)) =>
                        let

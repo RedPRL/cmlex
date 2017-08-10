@@ -80,12 +80,12 @@ structure CodegenHs :> CODEGEN =
          then  l is a big-endian int list representing n
                |l| = stateSize
                forall i in l . 0 <= i < 256
-               and 
+               and
                return l
       *)
       fun intToBytes size n =
           let
-             val l = 
+             val l =
                 map Word.toInt
                 (wordToBytelist (Word.fromInt n) [])
           in
@@ -113,7 +113,7 @@ structure CodegenHs :> CODEGEN =
                     loop (i-1) (symbolLimit-1) acc
                  else
                     let
-                       val state = 
+                       val state =
                           Array.sub (Array.sub (trans, i), j)
                           handle Subscript =>
                                     (* Symbol out of range of array means illegal character. *)
@@ -203,7 +203,7 @@ structure CodegenHs :> CODEGEN =
                 write " "
                 ))
             types;
-            
+
             write "-> stream symbol -> ";
             if monadic then
                write "monad "
@@ -255,15 +255,15 @@ structure CodegenHs :> CODEGEN =
                   final
             else
                appArraySeparated
-                  (fn action => 
+                  (fn action =>
                       (
-                      write "Control.Monad.Identity.Identity . "; 
+                      write "Control.Monad.Identity.Identity . ";
                       write moduleName;
                       write ".";
                       write action;
                       write " arg"
                       ))
-                  (fn () => write ", ") 
+                  (fn () => write ", ")
                   final;
             write "], LexEngine.next";
             write minorstr;
@@ -283,7 +283,7 @@ structure CodegenHs :> CODEGEN =
 
             write majorstr;
             write " \"";
-            
+
             app (fn b => (
                          write "\\";
                          write (Int.toString b)
@@ -291,9 +291,9 @@ structure CodegenHs :> CODEGEN =
             (genEosTable stateSize count transEos);
 
             write "\") s;\n"
-                
+
          end
-            
+
 
       fun writeProgram filename (options, symbolLimit, types, actions, functions) =
          let
@@ -307,7 +307,7 @@ structure CodegenHs :> CODEGEN =
                        ))
 
             val monadic = StringDict.member options "monadic"
-         
+
             val outs = TextIO.openOut filename
             fun write str = TextIO.output (outs, str)
          in

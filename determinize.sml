@@ -139,14 +139,14 @@ structure Determinize
 
                        val rd =
                           S.foldl
-                          (fn (state, rdAcc) => 
+                          (fn (state, rdAcc) =>
                                  let
                                     (* Symbol transitions (as a state list dict) *)
                                     val (d, _) =
                                        Array.sub (trans, state)
 
                                     (* Epsilon closure of the symbol transitions (as a set dict). *)
-                                    val d' = 
+                                    val d' =
                                        D.map (fn l => epsilonCloseList trans S.empty l) d
                                  in
                                     (* Epsilon closure of the symbol transitions, merged into the accumulator. *)
@@ -173,7 +173,7 @@ structure Determinize
 
              val (finalset, finaldict) =
                 foldl
-                (fn ((state, action), (set, dict)) => 
+                (fn ((state, action), (set, dict)) =>
                        (S.insert set state,
                         SD.insertMerge dict state action (betterAction action)))
                 (S.empty, SD.empty)
