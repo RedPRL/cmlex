@@ -1,6 +1,17 @@
 CM-Lex: A lexer generator for Standard ML and Haskell
 =====================================================
 
+This is RedPRL's fork of [CM-Lex](https://github.com/standardml/cmlex). The
+only difference is that we do not build with Smackage; Smackage can be a nice
+tool for local and non-collaborative development, but we are principally
+concerned with having build environments that do not require complicated setup
+processes, and which can easily be reproduced on remove continuous integration
+servers like Travis.
+
+By keeping all code in-repository (using submodules), it is possible to achieve
+a simple and reproducible build that requires no extra tools except those which
+come with the two principal Standard ML distributions (SML/NJ and MLton).
+
 Installing
 ----------
 
