@@ -69,13 +69,13 @@ structure Codegen :> CODEGEN =
          if    0 <= n < 2^(8 * size)
          then  l is a big-endian character list representing n
                |l| = stateSize
-               and 
+               and
                return l
       *)
       fun intToChars size n =
           let
-             val l = 
-                map 
+             val l =
+                map
                 (fn w => Char.chr (Word.toInt w))
                 (wordToBytelist (Word.fromInt n) [])
           in
@@ -104,7 +104,7 @@ structure Codegen :> CODEGEN =
                     loop (i-1) (symbolLimit-1) acc
                  else
                     let
-                       val state = 
+                       val state =
                           Array.sub (Array.sub (trans, i), j)
                           handle Subscript =>
                                     (* Symbol out of range of array means illegal character. *)
@@ -220,8 +220,8 @@ structure Codegen :> CODEGEN =
              write name;
              write " s = LexEngine.lex {";
 
-             appSeparated 
-             (fn (fname, _, _) => 
+             appSeparated
+             (fn (fname, _, _) =>
                     (
                     write fname;
                     write "=";
@@ -254,7 +254,7 @@ structure Codegen :> CODEGEN =
              write functorName;
              write "\n   (structure Streamable : STREAMABLE\n    structure Arg :\n       sig\n          type symbol\n          val ord : symbol -> int\n\n";
 
-             app 
+             app
                 (fn typeName =>
                        (
                        write "          type ";
@@ -313,7 +313,7 @@ structure Codegen :> CODEGEN =
 
              writeFunction outs functions "fun " (hd functions);
              app (writeFunction outs functions "and ") (tl functions);
-             
+
              write "end\nend\n";
 
              TextIO.closeOut outs

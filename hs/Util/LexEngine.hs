@@ -117,13 +117,13 @@ data LexInfo s symbol =
 
 type Action s m symbol a = LexInfo s symbol -> m a
 
-type Table s m symbol a = 
-   (symbol -> Int, 
-    Int, 
+type Table s m symbol a =
+   (symbol -> Int,
     Int,
-    Int, 
-    Array Int (Action s m symbol a), 
-    Int -> Int -> Int, 
+    Int,
+    Int,
+    Array Int (Action s m symbol a),
+    Int -> Int -> Int,
     Int -> Int)
 
 lex :: Streamable s m => Table s m symbol a -> s symbol -> m a
@@ -143,7 +143,7 @@ lex (ord, initial, lastAcceptSink, lastAccept, acceptTable, next, nextEos) s =
                      {
                      Nil ->
                         loop state len chars s (nextEos state) len chars s  ;
-   
+
                      Cons ch s' ->
                         loop state len chars s (next state (ord ch)) (len+1) (ch : chars) s'
                      }
@@ -162,7 +162,7 @@ lex (ord, initial, lastAcceptSink, lastAccept, acceptTable, next, nextEos) s =
                } ;
 
       }
-   in do 
+   in do
       {
       {- By construction, initial is an accepting state. -}
       (acceptingState, len, chars, s') <- loop initial 0 [] s initial 0 [] s ;

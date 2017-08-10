@@ -1,5 +1,5 @@
 
-structure MakeNFA 
+structure MakeNFA
    :> MAKE_NFA
    =
    struct
@@ -29,7 +29,7 @@ structure MakeNFA
 
                     val d =
                        SymbolSet.foldl
-                       (fn (sym, d) => D.insert d sym [final])                              
+                       (fn (sym, d) => D.insert d sym [final])
                        D.empty
                        set
                  in
@@ -53,7 +53,7 @@ structure MakeNFA
             | Regexp.Epsilon =>
                  (n, n, EMPTY)
             | Regexp.Empty =>
-                 let 
+                 let
                     val initial = n
                     val final = initial+1
                  in
@@ -78,7 +78,7 @@ structure MakeNFA
 
                     val transInitial = ([], [initial1, initial2])
 
-                    val trans = 
+                    val trans =
                        NODE (NODE (NODE (trans1, ELT (D.empty, [final])),
                                    NODE (trans2, ELT (D.empty, [final]))),
                              ELT (D.empty, [initial1, initial2]))
@@ -88,7 +88,7 @@ structure MakeNFA
             | Regexp.Option re =>
                  let
                     val (initial, final, trans) = make1RevNfa re n
-                       
+
                     val initial' = final+1
                     val final' = initial'+1
 
@@ -125,7 +125,7 @@ structure MakeNFA
 
 
       (* makeRevNfaMain Rs n initialAcc transAcc
-       
+
          if    n >= 0
          then  (Q, Q_init, q_final, delta) is an nfa for rev(Rs)
                Q = { 0, n .. count-1 }

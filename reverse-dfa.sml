@@ -17,7 +17,7 @@ structure ReverseDFA
                         ()
                    | d :: rest =>
                         let
-                           val () = 
+                           val () =
                               D.app
                               (fn (symbol, state') =>
                                      (* Automaton transitions from state to state' on symbol. *)
@@ -34,9 +34,9 @@ structure ReverseDFA
                         in
                            loop (state+1) rest
                         end)
-                 
+
              val () = loop 0 trans
-                
+
           in
              (final, initial, rtrans)
           end

@@ -11,13 +11,13 @@ structure Automata =
       type symbol = int
       type state = int
 
-      type ('a, 'b) nfa = 
+      type ('a, 'b) nfa =
          (state * 'a) list  (* initial states *)
          *
          (state * 'b) list  (* final states *)
          *
          (state list SymbolDict.dict * state list) array
-         
+
       type ('a, 'b) dfa =
          int                (* number of states *)
          *
@@ -26,7 +26,7 @@ structure Automata =
          (state * 'b) list  (* final states *)
          *
          state SymbolDict.dict list
- 
+
       type automaton =
          int                (* total states *)
          *

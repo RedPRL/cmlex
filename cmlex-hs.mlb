@@ -1,6 +1,6 @@
 sources-generic.mlb
 
-codegen-hs.sml 
+codegen-hs.sml
 parsemain-hs.cmyacc.sml
 token-hs.sml
 

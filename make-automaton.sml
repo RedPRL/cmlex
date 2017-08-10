@@ -27,7 +27,7 @@ structure MakeAutomaton
 
              val minusone =
                 (case SymbolDict.find d (~1) of
-                    NONE => 
+                    NONE =>
                        NONE
                   | SOME x =>
                        SOME (f x))
@@ -97,7 +97,7 @@ structure MakeAutomaton
                              raise (Fail "invariant"))
                 (firstNonfinalsink, rfinalRev)
                 final
-                
+
              (* Add non-final states to the permutation. *)
              val _ =
                 foldl
@@ -118,7 +118,7 @@ structure MakeAutomaton
                 (case initial of
                     [] =>
                        0
-                  | [(state, ())] => 
+                  | [(state, ())] =>
                        Array.sub (permutation, state)
                   | _ =>
                        (* There are multiple initial-state entries.  By construction,
