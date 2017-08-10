@@ -3,12 +3,10 @@ all:
 	@echo "CM-Lex for Standard ML (cmlex):"
 	@echo "Run 'make smlnj' or 'make mlton' on Linux/Unix/OSX."
 	@echo "Run 'make win+smlnj' in Windows."
-	@echo "In Smackage, then run 'make install' to install."
 	@echo ""
 	@echo "CM-Lex for Haskell (cmlex-hs):"
 	@echo "Run 'make smlnj+hs' or 'make mlton+hs' on Linux/Unix/OSX."
 	@echo "Run 'make win+smlnj+hs' in Windows."
-	@echo "In Smackage, then run 'make install+hs' to install."
 
 # MLton
 .PHONY : mlton
